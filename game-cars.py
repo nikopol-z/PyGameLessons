@@ -1,10 +1,12 @@
 import pygame
 import random
+import math
 from pygame.locals import *
 
 
 MAX_X = 1440
 MAX_Y = 900
+CAR_SPEED = 15
 MAX_CARS = 1
 ROTATE_SPEED = 5
 angle0 = 0
@@ -13,9 +15,9 @@ class Car():
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.speed = 5
+        self.speed = CAR_SPEED
         self.image_filename = "C:/Users/One/Documents/PyGameLessons/static/yellow car.png"
-        self.image = [pygame.image.load(self.image_filename).convert_alpha(),pygame.image.load(self.image_filename).convert_alpha()]
+        self.image = [pygame.image.load(self.image_filename).convert(),pygame.image.load(self.image_filename).convert_alpha()]
 
 
     def rot_center(self, image, angle):
@@ -25,7 +27,7 @@ class Car():
         rot_image = pygame.transform.rotate(image, angle + angle0)
         angle0 += angle
         angle0 %= 360
-        print (angle0)
+        #print (angle0)
         rot_rect = orig_rect.copy()
         rot_rect.center = rot_image.get_rect().center
         rot_image = rot_image.subsurface(rot_rect).copy()
@@ -34,11 +36,14 @@ class Car():
 
     def move_car(self):
         keys = pygame.key.get_pressed()
+        angle1 = math.radians(angle0 + 90)
         if keys[pygame.K_UP] and self.y >= 0:
-            self.y -= self.speed
+            self.y -= self.speed * math.sin(angle1)
+            self.x += self.speed * math.cos(angle1)
             #print ("Uppp")
         if keys[pygame.K_DOWN] and self.y <= MAX_Y - 256:
-            self.y += self.speed
+            self.y += self.speed * math.sin(angle1)
+            self.x -= self.speed * math.cos(angle1)
             #print ("DOWN")
 
         if keys[pygame.K_LEFT]:
