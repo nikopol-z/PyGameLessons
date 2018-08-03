@@ -35,8 +35,14 @@ def check_for_exit():
 pygame.init()
 window = pygame.display.set_mode((MAX_X, MAX_Y), pygame.FULLSCREEN)
 bg_color = (0, 0, 0)
+bg = pygame.image.load('C:/Users/One/Documents/PyGameLessons/parking.png')
+bg = pygame.transform.scale(bg, (MAX_X, MAX_Y))
 main_running = True
 
 while main_running:
+    #win.fill(bg_color) #bg color fill
+    window.blit(bg, (0,0))
     check_for_exit()
+    pygame.display.update()
+
 pygame.quit()
