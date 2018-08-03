@@ -37,15 +37,32 @@ class Car():
     def move_car(self):
         keys = pygame.key.get_pressed()
         angle1 = math.radians(angle0 + 90)
-        if keys[pygame.K_UP] and self.y >= 0:
-            self.y -= self.speed * math.sin(angle1)
-            self.x += self.speed * math.cos(angle1)
-            #print ("Uppp")
-        if keys[pygame.K_DOWN] and self.y <= MAX_Y - 256:
-            self.y += self.speed * math.sin(angle1)
-            self.x -= self.speed * math.cos(angle1)
-            #print ("DOWN")
+        if keys[pygame.K_UP] or keys[pygame.K_DOWN]:
+            if self.y < 0: # top border
+                if math.sin(angle1) < 0:
+                    self.y -= self.speed * math.sin(angle1) * (lambda x: 1 if x else -1)(keys[pygame.K_UP])
+                    self.x += self.speed * math.cos(angle1)
+                else:
+                    self.x += self.speed * math.cos(angle1)
+            else:   # inside the screen - going enywhere
+                self.y -= self.speed * math.sin(angle1) * (lambda x: 1 if x else -1)(keys[pygame.K_UP])
+                self.x += self.speed * math.cos(angle1)
+            """if self.y > MAX_Y - 256: # bottom border
+                if math.sin(angle1) > 0:
+                    self.y -= self.speed * math.sin(angle1)
+                    self.x += self.speed * math.cos(angle1)
+                else:
+                    self.x += self.speed * math.cos(angle1)
+            else:   # inside the screen - going enywhere
+                self.y -= self.speed * math.sin(angle1)
+                self.x += self.speed * math.cos(angle1)
 
+        if keys[pygame.K_DOWN]:
+            if self.y <= 0 or self.y > MAX_Y - 256:
+                self.y += self.speed * math.sin(angle1)
+                self.x -= self.speed * math.cos(angle1)
+            #print ("DOWN")
+"""
         if keys[pygame.K_LEFT]:
             self.rot_center(self.image[0], ROTATE_SPEED)
         if keys[pygame.K_RIGHT]:
