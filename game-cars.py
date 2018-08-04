@@ -1,7 +1,7 @@
 import pygame
 import random
 import math
-from pygame.locals import *
+#from pygame.locals import *
 
 
 MAX_X = 1440
@@ -16,7 +16,7 @@ class Car():
         self.x = x
         self.y = y
         self.speed = CAR_SPEED
-        self.image_filename = "C:/Users/One/Documents/PyGameLessons/static/yellow car.png"
+        self.image_filename = "C:/Users/One/Documents/PyGameLessons/static/audi.png"
         self.image = [pygame.image.load(self.image_filename).convert(),pygame.image.load(self.image_filename).convert_alpha()]
 
 
@@ -38,15 +38,19 @@ class Car():
         keys = pygame.key.get_pressed()
         angle1 = math.radians(angle0 + 90)
         if keys[pygame.K_UP] or keys[pygame.K_DOWN]:
+            t = lambda x: -1 if x else 1
             if self.y < 0: # top border
                 if math.sin(angle1) < 0:
-                    self.y -= self.speed * math.sin(angle1) * (lambda x: 1 if x else -1)(keys[pygame.K_UP])
-                    self.x += self.speed * math.cos(angle1)
+
+                    self.y += self.speed * math.sin(angle1) * t(keys[pygame.K_UP])
+                    #print (t(keys[pygame.K_UP]))
+                    self.x += self.speed * math.cos(angle1) * t(keys[pygame.K_UP])
+                    print (self.x)
                 else:
                     self.x += self.speed * math.cos(angle1)
             else:   # inside the screen - going enywhere
-                self.y -= self.speed * math.sin(angle1) * (lambda x: 1 if x else -1)(keys[pygame.K_UP])
-                self.x += self.speed * math.cos(angle1)
+                self.y += self.speed * math.sin(angle1) * t(keys[pygame.K_UP])
+                self.x += self.speed * math.cos(angle1) * t(keys[pygame.K_UP])
             """if self.y > MAX_Y - 256: # bottom border
                 if math.sin(angle1) > 0:
                     self.y -= self.speed * math.sin(angle1)
