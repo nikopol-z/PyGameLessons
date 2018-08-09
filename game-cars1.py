@@ -17,7 +17,7 @@ class Car():
         self.y = y
         self.speed = CAR_SPEED
         self.image_filename = "C:/Users/One/Documents/PyGameLessons/static/audi.png"
-        self.image = [pygame.image.load(self.image_filename).convert(),pygame.image.load(self.image_filename).convert_alpha()]
+        self.image = [pygame.image.load(self.image_filename).convert_alpha(),pygame.image.load(self.image_filename).convert_alpha()]
 
 
     def rot_center(self, image, angle):
@@ -38,15 +38,6 @@ class Car():
         angle1 = math.radians(angle0 + 90)
         keys = pygame.key.get_pressed()
 
-#       if keys[pygame.K_UP]:
-#            self.y -= self.speed * math.sin(angle1)
-#            self.x += self.speed * math.cos(angle1)
-#            #print ("Uppp")
-#        if keys[pygame.K_DOWN]:
-#            self.y += self.speed * math.sin(angle1)
-#            self.x -= self.speed * math.cos(angle1)
-#            #print ("DOWN")
-
         if keys[pygame.K_UP] or keys[pygame.K_DOWN]:
             P = 1
             V = 1
@@ -65,16 +56,14 @@ class Car():
             if self.y >= MAX_Y - 256:
                 V = min(deltaY)
 
-
             self.x = self.x + deltaX * P
             self.y = self.y - deltaY * V
-
 
             if keys[pygame.K_LEFT]:
                 self.rot_center(self.image[0], ROTATE_SPEED * N(keys[pygame.K_UP]))
             if keys[pygame.K_RIGHT]:
                 self.rot_center(self.image[0], -ROTATE_SPEED * N(keys[pygame.K_UP]))
-            #self.image = pygame.transform.rotate(self.image, 1)
+
 
 
 
