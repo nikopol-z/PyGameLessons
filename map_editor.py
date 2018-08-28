@@ -109,6 +109,8 @@ while isRunning:
         if event.type == pygame.MOUSEBUTTONDOWN:
             tile = [mouse_x - camera_x, mouse_y - camera_y, brush] # Keep this as a list
 
+
+
             found = False
             for t in tile_data:
                 if t[0] == tile[0] and t[1] == tile[1]:
@@ -127,8 +129,8 @@ while isRunning:
                             print("Tile Removed!")
 
                 else:
-                    print("A tile is already placed here!")
-
+                    tile_data.remove(t)
+                    tile_data.append(tile)
 
 
     # LOGIC
