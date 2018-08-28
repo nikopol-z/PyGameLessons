@@ -2,6 +2,7 @@ import pygame, sys, time
 from scripts.UltraColor import *
 from scripts.Tiles import *
 from scripts.Globals import *
+from scripts.map_engine import *
 
 pygame.init()
 
@@ -9,9 +10,14 @@ crnSec = 0
 crnFrame = 0
 FPS = 0
 
-clock = pygame.time.Clock()
 
-map_data = [(5, 6, "2"), (7, 2, "3")]
+
+#clock = pygame.time.Clock()
+
+#map_data = [(5, 6, "2"), (7, 2, "3")]
+
+terrain = Map_Engine.load_map("maps\\world.map")
+
 
 fps_font = pygame.font.Font("C:\\Windows\\Fonts\\Verdana.ttf", 20)
 
@@ -82,15 +88,12 @@ while isRunning:
     #wndw.fill((Color.Black))
     wndw.blit(Sky, (0, 0))
 
+    wndw.blit(terrain, (Globals.cam_x, Globals.cam_y))
+
     # ---------------- RENDER SIMPLE TERRAIN GRID -----------------
-    for x in range(0, 640, Tiles.size):
-        for y in range(0, 480, Tiles.size):
-            #pygame.draw.rect(wndw, Color.White, (x, y, Tiles.size + 1, Tiles.size + 1), 1)
-            #wndw.blit(Tiles.Grass, (x + Globals.cam_x, y + Globals.cam_y))
-            for i in map_data:
-                tile = (i[0] * Tiles.size, i[1] * Tiles.size)
-                if (x, y) == tile:
-                    wndw.blit(Tiles.Texture_Tags[i[2]], (x + Globals.cam_x, y + Globals.cam_y))
+
+
+
 
     show_FPS()
 
@@ -98,7 +101,7 @@ while isRunning:
 
     count_FPS()
 
-    clock.tick(100)
+    #clock.tick(100)
 
 pygame.quit()
 sys.exit()

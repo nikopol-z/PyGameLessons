@@ -26,4 +26,4 @@ class Tiles:
 
     Water = load_texture("graphics\\water.png", size)
 
-    Texture_Tags = {"1" : Grass, "2" : Stone, "3" : Water}
+    Texture_Tags = {"1" : Grass, "2" : Stone, "3" : Water, "4" : Grass1, "5" : Grass2}
